@@ -11,4 +11,10 @@
         VALUES (POST_SEQ.NEXTVAL, #{post_writer}, #{post_title}, #{post_content})
 	</insert>
 	
+	<!-- 게시물 목록 -->
+	<select id="post_list" resultType="com.project.spring_board.dto.PostDto">
+		SELECT POST_NO, POST_WRITER, POST_TITLE, POST_CONTENT, POST_VIEW, POST_LIKE, POST_REGDATE
+		  FROM POST
+		 ORDER BY POST_NO DESC
+	</select>
 </mapper>
