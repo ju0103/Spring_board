@@ -1,5 +1,7 @@
 package com.project.spring_board.dao;
 
-public interface PostDao {
+import java.util.HashMap;
 
+public interface PostDao {
+	public void post_write(HashMap<String, String> param);
 }
