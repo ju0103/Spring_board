@@ -5,4 +5,10 @@
 
 <mapper namespace="com.project.spring_board.dao.PostDao">
 
+	<!-- 게시글 작성 -->
+	<insert id="post_write" parameterType="hashmap">
+		INSERT INTO POST(POST_NO, POST_WRITER, POST_TITLE, POST_CONTENT)
+        VALUES (POST_SEQ.NEXTVAL, #{post_writer}, #{post_title}, #{post_content})
+	</insert>
+	
 </mapper>

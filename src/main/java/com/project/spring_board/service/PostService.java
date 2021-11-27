@@ -1,5 +1,7 @@
 package com.project.spring_board.service;
 
-public interface PostService {
+import java.util.HashMap;
 
+public interface PostService {
+	public void post_write(HashMap<String, String> param);
 }
