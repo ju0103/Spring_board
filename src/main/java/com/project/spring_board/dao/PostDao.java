@@ -10,4 +10,6 @@ public interface PostDao {
 	public void post_write(HashMap<String, String> param);
 	// 게시물 목록 조회
 	public ArrayList<PostDto> post_list();
+	// 게시물 상세 내용 조회
+	public PostDto post_content(HashMap<String, String> param);
 }

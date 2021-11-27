@@ -43,5 +43,12 @@ public class PostController {
 		return "post/post_list";
 	}
 	
+	// 게시물 상세 내용 조회
+	@RequestMapping(value = "/post_content")
+	public String post_content(@RequestParam HashMap<String, String> param, Model model) {
+		System.out.println("===== post_content() =====");
+		model.addAttribute("post_content", postService.post_content(param));
+		return "post/post_content";
+	}
 	
 }
