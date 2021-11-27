@@ -31,7 +31,9 @@
 			<c:forEach items="${post_list}" var="list">
 				<tr>
 					<td>${list.post_no}</td>
-					<td>${list.post_title}</td>
+					<td>
+						<a href="post_content?post_no=${list.post_no}">${list.post_title}</a>
+					</td>
 					<td>${list.post_writer}</td>
 					<td>${list.post_view}</td>
 					<td>${list.post_like}</td>
