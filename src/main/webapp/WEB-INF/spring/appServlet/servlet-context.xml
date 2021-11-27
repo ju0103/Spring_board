@@ -23,6 +23,25 @@
 	
 	<context:component-scan base-package="com.project.spring_board" />
 	
+	<!-- JDBC Template -->
+	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<beans:property name="username" value="BOARD"/>
+		<beans:property name="password" value="1234"/>
+	</beans:bean>
 	
+	<beans:bean name="template" class="org.springframework.jdbc.core.JdbcTemplate">
+		<beans:property name="dataSource" ref="dataSource"/>
+	</beans:bean>
 	
+	<!-- MyBatis-->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name="mapperLocations" value="classpath:com/project/spring_board/dao/mapper/*.xml"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
+	</beans:bean>
 </beans:beans>
