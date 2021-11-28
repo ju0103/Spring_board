@@ -43,5 +43,12 @@ public class PostServiceImpl implements PostService {
 		PostDao dao = sqlSession.getMapper(PostDao.class);
 		dao.post_update(param);
 	}
+
+	// 게시물 삭제
+	@Override
+	public void post_delete(HashMap<String, String> param) {
+		PostDao dao = sqlSession.getMapper(PostDao.class);
+		dao.post_delete(param);
+	}
 	
 }
