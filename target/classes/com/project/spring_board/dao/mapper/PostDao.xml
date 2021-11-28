@@ -25,6 +25,13 @@
 		 WHERE POST_NO = #{post_no}
 	</select>
 	
+	<!-- 게시물 조회 수 증가 -->
+	<update id="update_view" parameterType="hashmap">
+		UPDATE POST
+		   SET POST_VIEW = POST_VIEW + 1
+		 WHERE POST_NO = #{post_no}
+	</update>
+	
 	<!-- 게시물 수정 -->
 	<update id="post_update" parameterType="hashmap">
 		UPDATE POST

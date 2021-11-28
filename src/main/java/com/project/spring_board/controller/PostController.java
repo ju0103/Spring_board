@@ -47,6 +47,10 @@ public class PostController {
 	@RequestMapping(value = "/post_content")
 	public String post_content(@RequestParam HashMap<String, String> param, Model model) {
 		System.out.println("===== post_content() =====");
+		
+		// 게시물 조회 수 증가
+		postService.update_view(param);
+		
 		model.addAttribute("post_content", postService.post_content(param));
 		return "post/post_content";
 	}
