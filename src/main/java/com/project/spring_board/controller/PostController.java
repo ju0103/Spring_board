@@ -66,4 +66,12 @@ public class PostController {
 		postService.post_update(param);
 		return "redirect:post_list";
 	}
+	
+	// 게시물 삭제
+	@RequestMapping(value = "/post_delete")
+	public String post_delete(@RequestParam HashMap<String, String> param) {
+		System.out.println("===== post_delete() =====");
+		postService.post_delete(param);
+		return "redirect:post_list";
+	}
 }

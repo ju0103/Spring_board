@@ -34,4 +34,10 @@
 		 WHERE POST_NO = #{post_no}
 	</update>
 	
+	<!-- 게시물 삭제 -->
+	<delete id="post_delete" parameterType="hashmap">
+		DELETE POST
+		 WHERE POST_NO = #{post_no}
+	</delete>
+	
 </mapper>

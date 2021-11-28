@@ -22,5 +22,6 @@
 	<p>${post_content.post_content}</p>
 	<hr />
 	<a href="post_update_view?post_no=${post_content.post_no}">수정하기</a>
+	<a href="post_delete?post_no=${post_content.post_no}">삭제</a>
 </body>
 </html>
