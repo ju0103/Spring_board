@@ -36,5 +36,12 @@ public class PostServiceImpl implements PostService {
 		PostDao dao = sqlSession.getMapper(PostDao.class);
 		return dao.post_content(param);
 	}
+
+	// 게시물 수정
+	@Override
+	public void post_update(HashMap<String, String> param) {
+		PostDao dao = sqlSession.getMapper(PostDao.class);
+		dao.post_update(param);
+	}
 	
 }
