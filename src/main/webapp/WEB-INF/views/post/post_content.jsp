@@ -20,5 +20,7 @@
 	<p>작성일: <fmt:formatDate value="${post_content.post_regdate}" pattern="yyyy년 MM월 dd일 hh:mm"/></p>
 	<hr />
 	<p>${post_content.post_content}</p>
+	<hr />
+	<a href="post_update_view?post_no=${post_content.post_no}">수정하기</a>
 </body>
 </html>

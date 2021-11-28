@@ -51,4 +51,19 @@ public class PostController {
 		return "post/post_content";
 	}
 	
+	// 게시물 수정 뷰
+	@RequestMapping(value = "/post_update_view")
+	public String post_update_view(@RequestParam HashMap<String, String> param, Model model) {
+		System.out.println("===== post_update_view() =====");
+		model.addAttribute("update_view", postService.post_content(param));
+		return "post/post_update_view";
+	}
+	
+	// 게시물 수정
+	@RequestMapping(value = "/post_update")
+	public String post_update(@RequestParam HashMap<String, String> param) {
+		System.out.println("===== post_update() =====");
+		postService.post_update(param);
+		return "redirect:post_list";
+	}
 }
