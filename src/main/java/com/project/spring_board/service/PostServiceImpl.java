@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.spring_board.dao.PostDao;
+import com.project.spring_board.dto.Criteria;
 import com.project.spring_board.dto.PostDto;
 
 @Service("PostService")
@@ -25,9 +26,16 @@ public class PostServiceImpl implements PostService {
 
 	// 게시물 목록 조회
 	@Override
-	public ArrayList<PostDto> post_list() {
+	public ArrayList<PostDto> post_list(Criteria criteria) {
 		PostDao dao = sqlSession.getMapper(PostDao.class);
-		return dao.post_list();
+		return dao.post_list(criteria);
+	}
+	
+	// 게시물 총 갯수 
+	@Override
+	public int post_total_cnt() {
+		PostDao dao = sqlSession.getMapper(PostDao.class);
+		return dao.post_total_cnt();
 	}
 
 	// 게시물 상세 내용 조회 
