@@ -2,20 +2,28 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.project.spring_board.dao.PostDao">
-
 	<!-- 게시글 작성 -->
 	<insert id="post_write" parameterType="hashmap">
 		INSERT INTO POST(POST_NO, POST_WRITER, POST_TITLE, POST_CONTENT)
         VALUES (POST_SEQ.NEXTVAL, #{post_writer}, #{post_title}, #{post_content})
 	</insert>
 	
-	<!-- 게시물 목록 -->
-	<select id="post_list" resultType="com.project.spring_board.dto.PostDto">
+	<!-- 게시물 목록(페이징) -->
+	<select id="post_list" parameterType="com.project.spring_board.dto.Criteria" resultType="com.project.spring_board.dto.PostDto">
 		SELECT POST_NO, POST_WRITER, POST_TITLE, POST_CONTENT, POST_VIEW, POST_LIKE, POST_REGDATE
-		  FROM POST
+		  FROM (
+		        SELECT POST_NO, POST_WRITER, POST_TITLE, POST_CONTENT, POST_VIEW, POST_LIKE, POST_REGDATE
+		             , ROW_NUMBER() OVER (ORDER BY POST_NO DESC) AS RN
+		          FROM POST)
+		 WHERE RN BETWEEN #{rowStart} AND #{rowEnd}
 		 ORDER BY POST_NO DESC
+	</select>
+	
+	<!-- 게시물 총 갯수 -->
+	<select id="post_total_cnt" resultType="int">
+		SELECT COUNT(POST_NO)
+		  FROM POST
 	</select>
 	
 	<!-- 게시물 상세 내용 조회 -->
@@ -24,14 +32,14 @@
 		  FROM POST
 		 WHERE POST_NO = #{post_no}
 	</select>
-	
+
 	<!-- 게시물 조회 수 증가 -->
 	<update id="update_view" parameterType="hashmap">
 		UPDATE POST
 		   SET POST_VIEW = POST_VIEW + 1
 		 WHERE POST_NO = #{post_no}
 	</update>
-	
+
 	<!-- 게시물 수정 -->
 	<update id="post_update" parameterType="hashmap">
 		UPDATE POST

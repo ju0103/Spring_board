@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.spring_board.dto.Criteria;
+import com.project.spring_board.dto.PageMaker;
 import com.project.spring_board.dto.PostDto;
 import com.project.spring_board.service.PostService;
 
@@ -36,10 +38,17 @@ public class PostController {
 	
 	// 게시물 목록 조회
 	@RequestMapping(value = "/post_list")
-	public String post_list(Model model) {
+	public String post_list(Model model, Criteria criteria) {
 		System.out.println("===== post_list() =====");
-		ArrayList<PostDto> list = postService.post_list();
+		
+		ArrayList<PostDto> list = postService.post_list(criteria);
 		model.addAttribute("post_list", list);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotal(postService.post_total_cnt());
+		model.addAttribute("pageMaker", pageMaker);
+		
 		return "post/post_list";
 	}
 	
