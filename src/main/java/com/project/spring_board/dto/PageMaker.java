@@ -1,5 +1,7 @@
 package com.project.spring_board.dto;
 
+import java.net.URLEncoder;
+
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -76,5 +78,28 @@ public class PageMaker {
 									.queryParam("perPageNum", criteria.getPerPageNum())
 									.build();
 		return uriComponents.toUriString();
+	}
+	
+	public String makeSearch(int page) {
+		UriComponents uriComponents = 
+				UriComponentsBuilder.newInstance()
+									.queryParam("page", page)
+									.queryParam("perPageNum", criteria.getPerPageNum())
+									.queryParam("searchType", ((SearchCriteria)criteria).getSearchType())
+									.queryParam("keyword", encoding(((SearchCriteria)criteria).getKeyword()))
+									.build();
+		return uriComponents.toUriString();
+	}
+	
+	private String encoding(String keyword) {
+		if (keyword.trim().length() == 0 || keyword == null) {
+			return "";
+		}
+		
+		try {
+			return URLEncoder.encode(keyword, "UTF-8");
+		} catch (Exception e) {
+			return "";
+		}
 	}
 }
