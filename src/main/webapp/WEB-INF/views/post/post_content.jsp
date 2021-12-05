@@ -6,22 +6,79 @@
 <head>
 	<meta charset="UTF-8">
 	<title>게시물 내용</title>
+	<script
+		src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
+	<style type="text/css">
+		table {
+			border-collapse: collapse;
+		}
+		th, td {
+			border: 1px solid #ccc;
+			padding: 5px;
+		}
+	</style>
 </head>
+	<script>
+		function downloadFile(filename) {
+			$.ajax({
+				method: "POST",
+				url: "download_file",
+				success: function(data) {
+					window.location = `download_file?file_name=${filename}`;
+				},
+				error: function(request, status) {
+					alert("오류가 발생하였습니다");
+				}
+			});
+		}
+		
+	</script>
 <body>
-	<header>
+	<section id="container">
+		<a href="post_list">목록으로</a>
+		<hr />
 		<h3>${post_content.post_title}</h3>
-	</header>
-	<hr />
-	<a href="post_list">목록으로</a>
-	<hr />
-	<p>작성자: ${post_content.post_writer}</p>
-	<p>조회수: ${post_content.post_view}</p>
-	<p>추천수: ${post_content.post_like}</p>
-	<p>작성일: <fmt:formatDate value="${post_content.post_regdate}" pattern="yyyy년 MM월 dd일 hh:mm"/></p>
-	<hr />
-	<p>${post_content.post_content}</p>
-	<hr />
-	<a href="post_update_view?post_no=${post_content.post_no}">수정하기</a>
-	<a href="post_delete?post_no=${post_content.post_no}">삭제</a>
+		<table>
+			<colgroup>
+				<col width="15%" />
+				<col width="25%" />
+				<col width="15%" />
+				<col width="15%" />
+				<col width="15%" />
+				<col width="15%" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<th>글번호</th>
+					<td>${post_content.post_no}</td>
+					<th>조회수</th>
+					<td>${post_content.post_view}</td>
+					<th>추천수</th>
+					<td>${post_content.post_like}</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td>${post_content.post_writer}</td>
+					<th>작성일</th>
+					<td colspan="3"><fmt:formatDate value="${post_content.post_regdate}" pattern="yyyy년 MM월 dd일 hh시 mm분"/></td>
+				</tr>
+				<tr>
+					<td colspan="6"><pre>${post_content.post_content}</pre></td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td colspan="5">
+						${post_content.file_name }(${post_content.file_size }KB)
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr />
+		<!-- 게시물 작성자에게만 나타날 부분 -->
+		<a href="post_update_view?post_no=${post_content.post_no}">수정</a>
+		<a href="post_delete?post_no=${post_content.post_no}">삭제</a>
+	</section>
 </body>
 </html>

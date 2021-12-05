@@ -44,7 +44,7 @@
 	</nav>	
 	<hr />
 	<section id="container">
-		<form name="writeForm" method="post" action="post_write">
+		<form name="writeForm" method="post" action="post_write" enctype="multipart/form-data">
 			<table width="500" border="1" cellspacing="0">
 				<tr>
 					<th>작성자</th>
@@ -57,6 +57,10 @@
 				<tr>
 					<th>내용</th>
 					<td><textarea cols="50" rows="5" name="post_content" class="check" title="내용을 입력하세요."></textarea></td>
+				</tr>
+				<tr>
+					<th>파일</th>
+					<td><input type="file" name="file" /></td>
 				</tr>
 				<tr>
 					<th colspan="2"><button type="button" class="write_btn">작성</button></td>

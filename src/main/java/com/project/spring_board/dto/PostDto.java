@@ -19,6 +19,12 @@ public class PostDto {
 	private Timestamp post_regdate;
 	/* 게시글 수정일 */
 	private Timestamp post_moddate;
+	/* 파일 원본명 */
+	private String file_name;
+	/* 파일 저장명 */
+	private String stored_file_name;
+	/* 파일 크기 */
+	private String file_size;
 	
 	public PostDto() {
 		super();
@@ -82,5 +88,23 @@ public class PostDto {
 	}
 	public void setPost_moddate(Timestamp post_moddate) {
 		this.post_moddate = post_moddate;
+	}
+	public String getFile_name() {
+		return file_name;
+	}
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
+	public String getStored_file_name() {
+		return stored_file_name;
+	}
+	public void setStored_file_name(String stored_file_name) {
+		this.stored_file_name = stored_file_name;
+	}
+	public String getFile_size() {
+		return file_size;
+	}
+	public void setFile_size(String file_size) {
+		this.file_size = file_size;
 	}
 }
