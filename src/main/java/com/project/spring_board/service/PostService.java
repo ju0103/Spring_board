@@ -3,12 +3,14 @@ package com.project.spring_board.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.project.spring_board.dto.PostDto;
 import com.project.spring_board.dto.SearchCriteria;
 
 public interface PostService {
 	// 게시글 작성
-	public void post_write(HashMap<String, String> param);
+	public void post_write(HashMap<String, String> param, MultipartFile file) throws Exception;
 	// 게시물 목록 조회
 	public ArrayList<PostDto> post_list(SearchCriteria searchCriteria);
 	// 게시물 총 갯수

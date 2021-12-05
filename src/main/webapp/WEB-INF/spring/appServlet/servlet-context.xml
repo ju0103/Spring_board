@@ -44,4 +44,15 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
+	
+	<!-- Commons Multipart Resolver 설정 -->
+	<beans:bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		 <!-- 최대 업로드 가능한 바이트 크기 -->
+	    <beans:property name="maxUploadSize" value="52428800" />
+	     <!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할 수 있는 최대 바이트 크기 -->
+	    <beans:property name="maxInMemorySize" value="1000000" />
+	     <!-- 요청을 파싱할 때 사용할 캐릭터 인코딩 -->
+	    <beans:property name="defaultEncoding" value="utf-8" />
+	</beans:bean>
+	
 </beans:beans>

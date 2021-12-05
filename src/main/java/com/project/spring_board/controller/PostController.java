@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.spring_board.dto.PageMaker;
 import com.project.spring_board.dto.PostDto;
@@ -30,9 +31,9 @@ public class PostController {
 	
 	// 게시물 등록
 	@RequestMapping(value = "/post_write")
-	public String post_write(@RequestParam HashMap<String, String> param) {
+	public String post_write(@RequestParam HashMap<String, String> param, MultipartFile file) throws Exception {
 		System.out.println("===== post_write() =====");
-		postService.post_write(param);
+		postService.post_write(param, file);
 		return "redirect:post_list";
 	}
 	
@@ -54,7 +55,7 @@ public class PostController {
 	
 	// 게시물 상세 내용 조회
 	@RequestMapping(value = "/post_content")
-	public String post_content(@RequestParam HashMap<String, String> param, Model model) {
+	public String post_content(@RequestParam HashMap<String, String> param, SearchCriteria searchCriteria, Model model) {
 		System.out.println("===== post_content() =====");
 		
 		// 게시물 조회 수 증가
@@ -68,7 +69,9 @@ public class PostController {
 	@RequestMapping(value = "/post_update_view")
 	public String post_update_view(@RequestParam HashMap<String, String> param, Model model) {
 		System.out.println("===== post_update_view() =====");
+		
 		model.addAttribute("update_view", postService.post_content(param));
+		
 		return "post/post_update_view";
 	}
 	
@@ -76,7 +79,9 @@ public class PostController {
 	@RequestMapping(value = "/post_update")
 	public String post_update(@RequestParam HashMap<String, String> param) {
 		System.out.println("===== post_update() =====");
+		
 		postService.post_update(param);
+		
 		return "redirect:post_list";
 	}
 	
@@ -84,7 +89,9 @@ public class PostController {
 	@RequestMapping(value = "/post_delete")
 	public String post_delete(@RequestParam HashMap<String, String> param) {
 		System.out.println("===== post_delete() =====");
+		
 		postService.post_delete(param);
+		
 		return "redirect:post_list";
 	}
 }
