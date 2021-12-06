@@ -20,21 +20,6 @@
 		}
 	</style>
 </head>
-	<script>
-		function downloadFile(filename) {
-			$.ajax({
-				method: "POST",
-				url: "download_file",
-				success: function(data) {
-					window.location = `download_file?file_name=${filename}`;
-				},
-				error: function(request, status) {
-					alert("오류가 발생하였습니다");
-				}
-			});
-		}
-		
-	</script>
 <body>
 	<section id="container">
 		<a href="post_list">목록으로</a>
@@ -70,7 +55,8 @@
 				<tr>
 					<th>첨부파일</th>
 					<td colspan="5">
-						${post_content.file_name }(${post_content.file_size }KB)
+						<a href="download_file?post_no=${post_content.post_no}&file_name=${post_content.file_name}">${post_content.file_name }</a>
+						(${post_content.file_size }KB)
 					</td>
 				</tr>
 			</tbody>
