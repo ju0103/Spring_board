@@ -1,9 +1,17 @@
 package com.project.spring_board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,5 +101,28 @@ public class PostController {
 		postService.post_delete(param);
 		
 		return "redirect:post_list";
+	}
+	
+	// 첨부파일 다운로드
+	@RequestMapping(value = "/download_file")
+	public void download_file(@RequestParam HashMap<String, String> param, HttpServletResponse response) throws Exception {
+		System.out.println("===== download_file() =====");
+		
+		PostDto postDto = postService.file_info(param);
+		String regdate = postDto.getPost_regdate().toString().substring(0, 10).replaceAll("-", "");
+		String storedFileName = postDto.getStored_file_name();
+		
+		byte[] fileByte = FileUtils.readFileToByteArray(new File("C:\\uploadFiles\\" + regdate + "\\" + storedFileName));
+		
+		response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+		response.setContentLength(fileByte.length);
+		response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(storedFileName, "UTF-8") + "\";");
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		
+		response.getOutputStream().write(fileByte);
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
+		/*
+		*/
 	}
 }

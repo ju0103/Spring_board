@@ -23,4 +23,6 @@ public interface PostService {
 	public void post_update(HashMap<String, String> param);
 	// 게시물 삭제
 	public void post_delete(HashMap<String, String> param);
+	// 첨부파일 정보 조회
+	public PostDto file_info(HashMap<String, String> param);
 }

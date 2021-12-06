@@ -114,4 +114,11 @@ public class PostServiceImpl implements PostService {
 		dao.post_delete(param);
 	}
 
+	// 첨부파일 정보 조회
+	@Override
+	public PostDto file_info(HashMap<String, String> param) {
+		PostDao dao = sqlSession.getMapper(PostDao.class);
+		return dao.file_info(param);
+	}
+
 }

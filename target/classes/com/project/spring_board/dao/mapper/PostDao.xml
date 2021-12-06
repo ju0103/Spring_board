@@ -68,4 +68,11 @@
 		 WHERE POST_NO = #{post_no}
 	</delete>
 	
+	<!-- 첨부파일 정보 조회 -->
+	<select id="file_info" resultType="com.project.spring_board.dto.PostDto">
+		SELECT POST_REGDATE, STORED_FILE_NAME
+		  FROM POST
+		 WHERE POST_NO = #{post_no}
+		   AND FILE_NAME = #{file_name}
+	</select>
 </mapper>
