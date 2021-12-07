@@ -17,8 +17,6 @@ public interface PostService {
 	public int post_total_cnt(SearchCriteria searchCriteria);
 	// 게시물 상세 내용 조회
 	public PostDto post_content(HashMap<String, String> param);
-	// 게시물 조회 수 증가
-	public void update_view(HashMap<String, String> param);
 	// 게시물 수정
 	public void post_update(HashMap<String, String> param);
 	// 게시물 삭제

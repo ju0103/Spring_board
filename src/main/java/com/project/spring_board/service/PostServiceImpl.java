@@ -10,6 +10,8 @@ import java.util.UUID;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -89,18 +91,13 @@ public class PostServiceImpl implements PostService {
 		return dao.post_total_cnt(searchCriteria);
 	}
 
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	// 게시물 상세 내용 조회 
 	@Override
 	public PostDto post_content(HashMap<String, String> param) {
 		PostDao dao = sqlSession.getMapper(PostDao.class);
-		return dao.post_content(param);
-	}
-	
-	// 게시물 조회 수 증가
-	@Override
-	public void update_view(HashMap<String, String> param) {
-		PostDao dao = sqlSession.getMapper(PostDao.class);
 		dao.update_view(param);
+		return dao.post_content(param);
 	}
 
 	// 게시물 수정

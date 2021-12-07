@@ -150,6 +150,13 @@
 			<version>2.5</version>
 		</dependency> 
 		
+		<!-- Transaction -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>
