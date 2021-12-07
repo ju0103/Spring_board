@@ -9,6 +9,8 @@ import com.project.spring_board.dto.SearchCriteria;
 public interface PostDao {
 	// 게시글 작성
 	public void post_write(HashMap<String, String> param);
+	// 게시글 작성
+	public void post_with_file(HashMap<String, String> param);
 	// 게시물 목록 조회
 	public ArrayList<PostDto> post_list(SearchCriteria searchCriteria);
 	// 게시물 총 갯수

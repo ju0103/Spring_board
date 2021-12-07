@@ -37,7 +37,7 @@
 	<hr />
 	<section id="container">
 		<a href="post_write_view">글 작성</a>
-		<table width="500" border="1" cellspacing="0">
+		<table width="1000" border="1" cellspacing="0">
 			<tr>
 				<th>번호</th>
 				<th>제목</th>

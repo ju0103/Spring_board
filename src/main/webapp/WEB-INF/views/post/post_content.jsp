@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -55,8 +56,10 @@
 				<tr>
 					<th>첨부파일</th>
 					<td colspan="5">
-						<a href="download_file?post_no=${post_content.post_no}&file_name=${post_content.file_name}">${post_content.file_name }</a>
-						(${post_content.file_size }KB)
+						<c:if test="${post_content.file_name ne null}">
+							<a href="download_file?post_no=${post_content.post_no}&file_name=${post_content.file_name}">${post_content.file_name }</a>
+							(${post_content.file_size }KB)
+						</c:if>
 					</td>
 				</tr>
 			</tbody>

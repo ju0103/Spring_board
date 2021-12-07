@@ -1,7 +1,6 @@
 package com.project.spring_board.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,28 +30,32 @@ public class PostServiceImpl implements PostService {
 	public void post_write(HashMap<String, String> param, MultipartFile file) throws Exception {
 		PostDao dao = sqlSession.getMapper(PostDao.class);
 		
-		String orgFileName = file.getOriginalFilename();
-		String extension = orgFileName.substring(orgFileName.lastIndexOf("."), orgFileName.length());
-		UUID uuid = UUID.randomUUID();
-		String storedFileName = uuid.toString().replaceAll("-", "") + extension;
-		long fileSize = file.getSize();
-		byte[] data = file.getBytes();
-		
-		mkDir();
-		
-		File target = new File(base_path + "\\", storedFileName);
-		
-		try {
-			FileCopyUtils.copy(data, target);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (!file.isEmpty()) {
+			String orgFileName = file.getOriginalFilename();
+			String extension = orgFileName.substring(orgFileName.lastIndexOf("."), orgFileName.length());
+			UUID uuid = UUID.randomUUID();
+			String storedFileName = uuid.toString().replaceAll("-", "") + extension;
+			long fileSize = file.getSize();
+			byte[] data = file.getBytes();
+			
+			mkDir();
+			
+			File target = new File(base_path + "\\", storedFileName);
+			
+			try {
+				FileCopyUtils.copy(data, target);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			param.put("file_name", orgFileName);
+			param.put("stored_file_name", storedFileName);
+			param.put("file_size", Long.toString(fileSize));
+			dao.post_with_file(param);
+		} else {
+			dao.post_write(param);
 		}
 		
-		param.put("file_name", orgFileName);
-		param.put("stored_file_name", storedFileName);
-		param.put("file_size", Long.toString(fileSize));
-		
-		dao.post_write(param);
 	}
 
 	// 날짜별 디렉토리 생성
