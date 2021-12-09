@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.spring_board.dao.CommentsDao">
+	
+	<!-- 댓글 조회 -->
+	<select id="comm_list" resultType="com.project.spring_board.dto.CommentsDto">
+		SELECT COMM_NO, COMM_WRITER, COMM_CONTENT, COMM_REGDATE
+		  FROM COMMENTS
+		 WHERE POST_NO = #{post_no}
+	</select>
+	
+</mapper>

@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.spring_board.dto.CommentsDto;
 import com.project.spring_board.dto.PageMaker;
 import com.project.spring_board.dto.PostDto;
 import com.project.spring_board.dto.SearchCriteria;
+import com.project.spring_board.service.CommentsService;
 import com.project.spring_board.service.PostService;
 
 @Controller
@@ -27,6 +29,9 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private CommentsService commentsService;
 	
 	// 게시물 작성
 	@RequestMapping(value = "/post_write_view")
@@ -61,10 +66,14 @@ public class PostController {
 	
 	// 게시물 상세 내용 조회
 	@RequestMapping(value = "/post_content")
-	public String post_content(@RequestParam HashMap<String, String> param, SearchCriteria searchCriteria, Model model) {
+	public String post_content(@RequestParam HashMap<String, String> param, int post_no, SearchCriteria searchCriteria, Model model) {
 		System.out.println("===== post_content() =====");
-		
 		model.addAttribute("post_content", postService.post_content(param));
+		
+		// 댓글 조회
+		ArrayList<CommentsDto> commentsList = commentsService.comm_list(post_no);
+		model.addAttribute("commentsList", commentsList);
+		
 		return "post/post_content";
 	}
 	

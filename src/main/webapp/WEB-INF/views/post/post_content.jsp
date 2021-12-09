@@ -68,6 +68,18 @@
 		<!-- 게시물 작성자에게만 나타날 부분 -->
 		<a href="post_update_view?post_no=${post_content.post_no}">수정</a>
 		<a href="post_delete?post_no=${post_content.post_no}">삭제</a>
+		
+		<!-- 댓글 -->
+		<div id="comments">
+			<ol class="commentsList">
+				<c:forEach items="${commentsList}" var="comments">
+					<li>
+						<p>작성자: ${comments.comm_writer} &nbsp;&nbsp;&nbsp; 작성일: <fmt:formatDate value="${comments.comm_regdate}" pattern="yyyy.MM.dd hh:mm" /></p>
+						<p><pre>${comments.comm_content}</pre></p>
+					</li>
+				</c:forEach>
+			</ol>
+		</div>
 	</section>
 </body>
 </html>
