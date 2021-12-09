@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring_board.dto.CommentsDto;
 import com.project.spring_board.dto.PageMaker;
@@ -126,5 +127,15 @@ public class PostController {
 		response.getOutputStream().write(fileByte);
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
+	}
+	
+	// 댓글 작성
+	@RequestMapping(value = "/comm_write")
+	public String comm_write(CommentsDto dto, RedirectAttributes rttr) {
+		
+		commentsService.comm_write(dto);
+		rttr.addAttribute("post_no", dto.getPost_no());
+		
+		return "redirect:post_content";
 	}
 }

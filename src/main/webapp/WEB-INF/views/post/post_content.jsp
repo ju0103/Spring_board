@@ -69,6 +69,22 @@
 		<a href="post_update_view?post_no=${post_content.post_no}">수정</a>
 		<a href="post_delete?post_no=${post_content.post_no}">삭제</a>
 		
+		<!-- 댓글 작성 폼 -->
+		<form method="post" action="comm_write">
+			<input type="hidden" name="post_no" value="${post_content.post_no}">
+			<div>
+				<label for="comm_writer">댓글 작성자</label>
+				<input type="text" name="comm_writer">
+			</div>
+			<div>
+				<label for="comm_writer">댓글 내용</label>
+				<textarea rows="3" cols="70" name="comm_content"></textarea>
+			</div>
+			<div>
+				<button type="submit">댓글 남기기</button>
+			</div>
+		</form>
+		
 		<!-- 댓글 -->
 		<div id="comments">
 			<ol class="commentsList">

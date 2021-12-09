@@ -11,4 +11,10 @@
 		 WHERE POST_NO = #{post_no}
 	</select>
 	
+	<!-- 댓글 작성 -->
+	<insert id="comm_write" parameterType="com.project.spring_board.dto.CommentsDto">
+		INSERT INTO COMMENTS(POST_NO, COMM_NO, COMM_WRITER, COMM_CONTENT)
+    		 VALUES (#{post_no}, COMMENTS_SEQ.NEXTVAL, #{comm_writer}, #{comm_content})
+	</insert>
+	
 </mapper>

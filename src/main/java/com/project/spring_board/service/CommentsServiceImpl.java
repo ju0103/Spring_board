@@ -22,4 +22,11 @@ public class CommentsServiceImpl implements CommentsService {
 		return dao.comm_list(post_no);
 	}
 
+	// 댓글 작성
+	@Override
+	public void comm_write(CommentsDto dto) {
+		CommentsDao dao = sqlSession.getMapper(CommentsDao.class);
+		dao.comm_write(dto);
+	}
+
 }

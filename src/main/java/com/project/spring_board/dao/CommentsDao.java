@@ -7,4 +7,6 @@ import com.project.spring_board.dto.CommentsDto;
 public interface CommentsDao {
 	// 댓글 조회
 	public ArrayList<CommentsDto> comm_list(int post_no);
+	// 댓글 작성
+	public void comm_write(CommentsDto dto);
 }
