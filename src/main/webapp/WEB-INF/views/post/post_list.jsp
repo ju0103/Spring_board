@@ -23,8 +23,14 @@
 			<div class="col-lg-7 mt-5">
 				<h3><a href="post_list" style="text-decoration: none; color: black;">게시글 목록</a></h3>
 			</div>
-			<div class="col-lg-1 mt-5 align-self-end">
-				<a href="post_write_view">글 작성</a>
+			<div class="col-lg-2 mt-5 align-self-end">
+				<c:if test="${empty sessionScope.mem_id}">
+					<a href="../member/loginView">로그인</a>
+				</c:if>
+				<c:if test="${not empty sessionScope.mem_id}">
+					<a href="post_write_view">글 작성</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;<a href="../member/logout">로그아웃</a>
+				</c:if>
 			</div>
 		</div>
 		<hr>

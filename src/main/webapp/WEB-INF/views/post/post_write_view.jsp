@@ -28,10 +28,7 @@
 				<div class="card m-4">
 					<div class="card-body">
 						<form name="writeForm" method="post" action="post_write" enctype="multipart/form-data">
-							<div class="mb-3">
-								<label for="post_writer" class="form-label">작성자</label>
-								<input type="text" name="post_writer" class="check form-control" title="작성자를 입력하세요.">
-							</div>
+							<input type="hidden" name="post_writer" value="${mem_id}">
 							<div class="mb-3">
 								<label for="post_title" class="form-label">제목</label>
 								<input type="text" name="post_title" class="check form-control" title="제목을 입력하세요.">

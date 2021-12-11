@@ -15,8 +15,15 @@
 <body>
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col mt-5">
+			<div class="col-lg-7 mt-5">
 				<h3><a href="post_list" style="text-decoration: none; color: black;">게시글 목록</a></h3>
+			</div>
+			<div class="col-lg-2 mt-5 align-self-end">
+				<a href="post_list" class="text-end">목록으로</a>
+				<c:if test="${not empty sessionScope.mem_id && sessionScope.mem_id eq post_content.post_writer}">
+						&nbsp;&nbsp;&nbsp;&nbsp;<a href="post_update_view?post_no=${post_content.post_no}">수정</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;<a href="post_delete?post_no=${post_content.post_no}">삭제</a>
+				</c:if>
 			</div>
 		</div>
 		<hr>
@@ -44,20 +51,25 @@
 					</div>
 				</div>
 				<!-- 댓글 작성 폼 -->
-				<div class="m-4 p-3">
-					<form method="post" action="comm_write">
-						<div class="card">
-							<input type="hidden" name="post_no" value="${post_content.post_no}">
-							<div class="card-header">
-								<input type="text" name="comm_writer" placeholder="댓글 작성자" required="required">
+				<c:if test="${not empty sessionScope.mem_id}">
+					<div class="m-4 p-3">
+						<form method="post" action="comm_write">
+							<div class="card">
+								<input type="hidden" name="post_no" value="${post_content.post_no}">
+								<input type="hidden" name="comm_writer" value="${sessionScope.mem_id}">
+								<div class="card-body align-middle" style="padding: 0;">
+									<textarea rows="3" cols="160" name="comm_content" placeholder="댓글 작성란) 무분별한 비방이나 욕설은 삼가해 주세요."></textarea>
+									<button type="submit" class="btn btn-outline-secondary">댓글 남기기</button>
+								</div>
 							</div>
-							<div class="card-body align-middle" style="padding: 0;">
-								<textarea rows="3" cols="160" name="comm_content" placeholder="댓글 작성란) 무분별한 비방이나 욕설은 삼가해 주세요."></textarea>
-								<button type="submit" class="btn btn-outline-secondary">댓글 남기기</button>
-							</div>
-						</div>
-					</form>
-				</div>
+						</form>
+					</div>
+				</c:if>
+				<c:if test="${empty sessionScope.mem_id}">
+					<div class="m-4 p-4">
+						<p>댓글을 작성하려면 로그인해주세요.</p>
+					</div>
+				</c:if>
 				<!-- 댓글 리스트 -->
 				<div id="comments">
 					<ol class="commentsList my-4 px-5" style="list-style: none;">
@@ -68,13 +80,6 @@
 							</li>
 						</c:forEach>
 					</ol>
-				</div>
-			</div>
-			<div class="col-3">
-				<div class="list-group">
-					<a class="list-group-item list-group-item-primary" href="post_list">목록으로</a>
-					<a class="list-group-item list-group-item-action" href="post_update_view?post_no=${post_content.post_no}">수정</a>
-					<a class="list-group-item list-group-item-action" href="post_delete?post_no=${post_content.post_no}">삭제</a>
 				</div>
 			</div>
 		</div>

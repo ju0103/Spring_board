@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.spring_board.dao.MemberDao">
+	
+	<!-- 회원가입 -->
+	<insert id="register" parameterType="hashmap">
+		INSERT INTO MEMBER(MEM_ID
+						 , MEM_PW
+						 , MEM_NAME
+						 , MEM_TEL
+						 , MEM_EMAIL)
+    		 VALUES (#{mem_id}
+    		 	   , #{mem_pw}
+    		 	   , #{mem_name}
+    		 	   , #{mem_tel}
+    		 	   , #{mem_email})
+	</insert>
+	
+	<!-- 회원 정보 조회 -->
+	<select id="selectMember" parameterType="string" resultType="com.project.spring_board.dto.MemberDto">
+		SELECT MEM_ID
+			 , MEM_PW
+			 , MEM_NAME
+			 , MEM_TEL
+			 , MEM_EMAIL
+			 , MEM_REGDATE
+			 , MEM_DAYS
+			 , MEM_LEVEL
+			 , MEM_POST
+		  FROM MEMBER
+		 WHERE MEM_ID = #{mem_id}
+	</select>
+	
+</mapper>
