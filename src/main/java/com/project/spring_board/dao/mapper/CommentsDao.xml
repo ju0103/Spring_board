@@ -17,4 +17,19 @@
     		 VALUES (#{post_no}, COMMENTS_SEQ.NEXTVAL, #{comm_writer}, #{comm_content})
 	</insert>
 	
+	<!-- 댓글 수정 -->
+	<update id="modify_comm" parameterType="hashmap">
+		UPDATE COMMENTS
+		   SET COMM_CONTENT = #{comm_content}
+		 WHERE POST_NO = #{post_no}
+		   AND COMM_NO = #{comm_no}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete_comm" parameterType="hashmap">
+		DELETE COMMENTS
+		 WHERE POST_NO = #{post_no}
+		   AND COMM_NO = #{comm_no}
+	</delete>
+	
 </mapper>

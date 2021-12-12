@@ -10,7 +10,7 @@
 	<title>게시물 내용</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container">
@@ -22,7 +22,7 @@
 				<a href="post_list" class="text-end">목록으로</a>
 				<c:if test="${not empty sessionScope.mem_id && sessionScope.mem_id eq post_content.post_writer}">
 						&nbsp;&nbsp;&nbsp;&nbsp;<a href="post_update_view?post_no=${post_content.post_no}">수정</a>
-						&nbsp;&nbsp;&nbsp;&nbsp;<a href="post_delete?post_no=${post_content.post_no}">삭제</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-danger" onclick="confirmDelete();">삭제</button>
 				</c:if>
 			</div>
 		</div>
@@ -75,7 +75,24 @@
 					<ol class="commentsList my-4 px-5" style="list-style: none;">
 						<c:forEach items="${commentsList}" var="comments">
 							<li>
-								<p>작성자: ${comments.comm_writer} &nbsp;&nbsp;&nbsp; 작성일: <fmt:formatDate value="${comments.comm_regdate}" pattern="yyyy.MM.dd hh:mm" /></p>
+								<p>
+									작성자: ${comments.comm_writer}
+									&nbsp;&nbsp;&nbsp; 작성일: <fmt:formatDate value="${comments.comm_regdate}" pattern="yyyy.MM.dd hh:mm" />
+									<c:if test="${sessionScope.mem_id eq comments.comm_writer}">
+										<button type="button" class="btn btn-outline-danger" id="modifyCommBtn">수정하기</button>
+										<button type="button" class="btn btn-outline-danger" onclick="deleteComm(${post_content.post_no}, ${comments.comm_no});">삭제하기</button>
+										<form method="post" action="modify_comm">
+											<div class="card" id="modifyForm" style="display: none;">
+												<input type="hidden" name="post_no" value="${post_content.post_no}">
+												<input type="hidden" name="comm_no" value="${comments.comm_no}">
+												<div class="card-body align-middle" style="padding: 0;">
+													<textarea rows="3" cols="160" name="comm_content">${comments.comm_content}</textarea>
+													<button type="submit" class="btn btn-outline-secondary">수정하기</button>
+												</div>
+											</div>
+										</form>
+									</c:if>
+								</p>
 								<p><pre>${comments.comm_content}</pre></p>
 							</li>
 						</c:forEach>
@@ -86,7 +103,33 @@
 	</div>
 	
 	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
+<script>
+	function confirmDelete() {
+		var result = confirm("삭제 후에는 복구가 불가능합니다.\n삭제하시겠습니까?");
+		
+		if (result == true) {
+			location.href = "post_delete?post_no=${post_content.post_no}";
+		}
+	}
+	
+	function deleteComm(postNo, commNo) {
+		var result = confirm("삭제하시겠습니까?");
+		
+		if (result == true) {
+			location.href = "delete_comm?post_no=" + postNo + "&comm_no=" + commNo;
+		}
+	}
+	
+	window.onload = function () {
+		var modifyBtn = document.getElementById("modifyCommBtn");
+		var modifyForm = document.getElementById("modifyForm");
+		
+		modifyBtn.onclick = function() {
+			modifyForm.style.display = 'block';
+		}
+	}
+</script>
 </html>

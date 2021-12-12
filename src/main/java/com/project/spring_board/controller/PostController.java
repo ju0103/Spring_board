@@ -153,4 +153,24 @@ public class PostController {
 		
 		return "redirect:post_content";
 	}
+	
+	// 댓글 수정
+	@RequestMapping(value = "/modify_comm")
+	public String modify_comm(@RequestParam HashMap<String, String> param, RedirectAttributes rttr) {
+		
+		commentsService.modify_comm(param);
+		rttr.addAttribute("post_no", param.get("post_no"));
+
+		return "redirect:post_content";
+	}
+	
+	// 댓글 삭제
+	@RequestMapping(value = "/delete_comm")
+	public String delete_comm(@RequestParam HashMap<String, String> param, RedirectAttributes rttr) {
+		
+		commentsService.delete_comm(param);
+		rttr.addAttribute("post_no", param.get("post_no"));
+		
+		return "redirect:post_content";
+	}
 }

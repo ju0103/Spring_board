@@ -1,6 +1,7 @@
 package com.project.spring_board.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,20 @@ public class CommentsServiceImpl implements CommentsService {
 	public void comm_write(CommentsDto dto) {
 		CommentsDao dao = sqlSession.getMapper(CommentsDao.class);
 		dao.comm_write(dto);
+	}
+
+	// 댓글 수정
+	@Override
+	public void modify_comm(HashMap<String, String> param) {
+		CommentsDao dao = sqlSession.getMapper(CommentsDao.class);
+		dao.modify_comm(param);
+	}
+	
+	// 댓글 삭제
+	@Override
+	public void delete_comm(HashMap<String, String> param) {
+		CommentsDao dao = sqlSession.getMapper(CommentsDao.class);
+		dao.delete_comm(param);
 	}
 
 }
