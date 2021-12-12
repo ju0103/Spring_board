@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,8 +68,22 @@ public class PostController {
 	
 	// 게시물 상세 내용 조회
 	@RequestMapping(value = "/post_content")
-	public String post_content(@RequestParam HashMap<String, String> param, int post_no, SearchCriteria searchCriteria, Model model) {
+	public String post_content(@RequestParam HashMap<String, String> param, int post_no, SearchCriteria searchCriteria, Model model, HttpSession session) {
 		System.out.println("===== post_content() =====");
+		PostDto postInfo = postService.post_content(param);
+
+		// 조회수 증가
+		String post_writer = postInfo.getPost_writer();
+		String sesssion_id = (String) session.getAttribute("mem_id");
+		if (sesssion_id == null) {
+			postService.update_view(param);
+		} else {
+			if (!sesssion_id.equals(post_writer)) {
+				postService.update_view(param);
+			}
+		}
+		
+		// 게시물 상세 내용 조회
 		model.addAttribute("post_content", postService.post_content(param));
 		
 		// 댓글 조회

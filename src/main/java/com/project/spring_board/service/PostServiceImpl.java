@@ -91,15 +91,21 @@ public class PostServiceImpl implements PostService {
 		return dao.post_total_cnt(searchCriteria);
 	}
 
-	@Transactional(isolation = Isolation.READ_COMMITTED)
 	// 게시물 상세 내용 조회 
 	@Override
 	public PostDto post_content(HashMap<String, String> param) {
 		PostDao dao = sqlSession.getMapper(PostDao.class);
-		dao.update_view(param);
 		return dao.post_content(param);
 	}
-
+	
+	// 게시물 조회 수 증가
+	@Transactional(isolation = Isolation.READ_COMMITTED)
+	@Override
+	public void update_view(HashMap<String, String> param) {
+		PostDao dao = sqlSession.getMapper(PostDao.class);
+		dao.update_view(param);
+	}
+	
 	// 게시물 수정
 	@Override
 	public void post_update(HashMap<String, String> param) {
