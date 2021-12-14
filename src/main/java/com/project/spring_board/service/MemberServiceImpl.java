@@ -29,4 +29,18 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMember(mem_id);
 	}
 
+	// 회원 정보 수정
+	@Override
+	public void updateMember(HashMap<String, String> param) {
+		MemberDao dao = sqlSession.getMapper(MemberDao.class);
+		dao.updateMember(param);
+	}
+
+	// 회원 탈퇴
+	@Override
+	public void deleteMember(String mem_id) {
+		MemberDao dao = sqlSession.getMapper(MemberDao.class);
+		dao.deleteMember(mem_id);
+	}
+
 }

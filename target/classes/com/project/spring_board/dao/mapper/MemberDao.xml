@@ -28,9 +28,23 @@
 			 , MEM_REGDATE
 			 , MEM_DAYS
 			 , MEM_LEVEL
-			 , MEM_POST
 		  FROM MEMBER
 		 WHERE MEM_ID = #{mem_id}
 	</select>
 	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="hashmap">
+		UPDATE MEMBER
+		   SET MEM_PW = #{mem_pw}
+			 , MEM_NAME = #{mem_name}
+			 , MEM_TEL = #{mem_tel}
+			 , MEM_EMAIL = #{mem_email}
+		 WHERE MEM_ID = #{mem_id}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="deleteMember" parameterType="string">
+		DELETE MEMBER
+		 WHERE MEM_ID = #{mem_id} 
+	</delete>
 </mapper>
