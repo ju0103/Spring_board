@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring_board.dto.MemberDto;
@@ -33,6 +34,13 @@ public class MemberController {
 	@RequestMapping(value = "/registerView")
 	public String registerView() {
 		return "member/register_view";
+	}
+	
+	// 아이디 중복 확인
+	@RequestMapping(value = "/chkId")
+	public @ResponseBody int chkId(@RequestParam("mem_id") String mem_id) throws Exception {
+		int result = memberService.chkId(mem_id);
+		return result;
 	}
 	
 	// 회원가입

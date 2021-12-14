@@ -11,6 +11,8 @@ public interface MemberDao {
 	public MemberDto selectMember(String mem_id);
 	// 회원 정보 수정
 	public void updateMember(HashMap<String, String> param);
-	// 회원 정보 수정
+	// 회원 탈퇴
 	public void deleteMember(String mem_id);
+	// 아이디 중복 확인
+	public int chkId(String mem_id);
 }

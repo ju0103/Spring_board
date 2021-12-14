@@ -43,4 +43,11 @@ public class MemberServiceImpl implements MemberService {
 		dao.deleteMember(mem_id);
 	}
 
+	// 아이디 중복 확인
+	@Override
+	public int chkId(String mem_id) {
+		MemberDao dao = sqlSession.getMapper(MemberDao.class);
+		return dao.chkId(mem_id);
+	}
+
 }
