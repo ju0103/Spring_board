@@ -1,5 +1,6 @@
 package com.project.spring_board.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -27,6 +28,9 @@ public class MemberController {
 	public String memberMain(String mem_id, Model model) {
 		MemberDto member = memberService.selectMember(mem_id);
 		model.addAttribute("member", member);
+
+		ArrayList<MemberDto> memberList = memberService.selectMemList();
+		model.addAttribute("memberList", memberList);
 		return "member/member_main";
 	}
 	
@@ -113,5 +117,13 @@ public class MemberController {
 		memberService.deleteMember(mem_id);
 		session.invalidate();
 		return "redirect:../post/post_list";
+	}
+	
+	// 회원 등업
+	@RequestMapping(value = "/updateLevel")
+	public String updateLevel(@RequestParam HashMap<String, String> param, HttpSession session, RedirectAttributes rttr) {
+		memberService.updateLevel(param);
+		rttr.addAttribute("mem_id", (String)session.getAttribute("mem_id"));
+		return "redirect:memberMain";
 	}
 }

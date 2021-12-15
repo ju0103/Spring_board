@@ -26,7 +26,6 @@
 			 , MEM_TEL
 			 , MEM_EMAIL
 			 , MEM_REGDATE
-			 , MEM_DAYS
 			 , MEM_LEVEL
 		  FROM MEMBER
 		 WHERE MEM_ID = #{mem_id}
@@ -53,5 +52,27 @@
 		SELECT COUNT(*) FROM MEMBER
 		 WHERE MEM_ID = #{mem_id} 
 	</select>
+	
+	<!-- 회원 리스트 -->
+	<select id="selectMemList" resultType="com.project.spring_board.dto.MemberDto">
+		SELECT MEM_ID
+			 , MEM_NAME
+			 , MEM_TEL
+			 , MEM_EMAIL
+			 , MEM_REGDATE
+			 , MEM_LEVEL
+		  FROM MEMBER
+		 WHERE MEM_ID != 'admin'
+	</select>
+	
+	<!-- 회원 등업 -->
+	<update id="updateLevel" parameterType="hashmap">
+		<![CDATA[
+			UPDATE MEMBER
+			   SET MEM_LEVEL = #{mem_level} + 1
+			 WHERE MEM_ID = #{mem_id}
+			   AND MEM_LEVEL < 3
+	   	]]>
+	</update>
 	
 </mapper>

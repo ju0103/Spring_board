@@ -1,5 +1,6 @@
 package com.project.spring_board.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
@@ -48,6 +49,20 @@ public class MemberServiceImpl implements MemberService {
 	public int chkId(String mem_id) {
 		MemberDao dao = sqlSession.getMapper(MemberDao.class);
 		return dao.chkId(mem_id);
+	}
+
+	// 회원 리스트
+	@Override
+	public ArrayList<MemberDto> selectMemList() {
+		MemberDao dao = sqlSession.getMapper(MemberDao.class);
+		return dao.selectMemList();
+	}
+	
+	// 회원 등업
+	@Override
+	public void updateLevel(HashMap<String, String> param) {
+		MemberDao dao = sqlSession.getMapper(MemberDao.class);
+		dao.updateLevel(param);
 	}
 
 }

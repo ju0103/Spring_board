@@ -1,5 +1,6 @@
 package com.project.spring_board.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.project.spring_board.dto.MemberDto;
@@ -15,4 +16,8 @@ public interface MemberDao {
 	public void deleteMember(String mem_id);
 	// 아이디 중복 확인
 	public int chkId(String mem_id);
+	// 회원 리스트 조회
+	public ArrayList<MemberDto> selectMemList();
+	// 회원 등업
+	public void updateLevel(HashMap<String, String> param);
 }
