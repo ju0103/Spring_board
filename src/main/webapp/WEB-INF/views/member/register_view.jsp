@@ -128,8 +128,6 @@
 					} else if (data == 0) {
 						$(".form-text").text("사용 가능한 아이디입니다.").css({"color":"blue"});
 						$("#chkIdBtn").attr("value", "Y");
-						$("#chkIdBtn").attr("disabled", "disabled");
-						$("input[name=mem_id]").attr("disabled", "disabled");
 					}
 				}
 			})
