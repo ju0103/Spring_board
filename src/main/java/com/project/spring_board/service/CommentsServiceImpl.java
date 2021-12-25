@@ -44,4 +44,25 @@ public class CommentsServiceImpl implements CommentsService {
 		dao.delete_comm(param);
 	}
 
+	// 신고 확인
+	@Override
+	public int chk_declare(HashMap<String, String> param) {
+		CommentsDao dao = sqlSession.getMapper(CommentsDao.class);
+		return dao.chk_declare(param);
+	}
+
+	// 댓글 신고
+	@Override
+	public void declare_comm(HashMap<String, String> param) {
+		CommentsDao dao = sqlSession.getMapper(CommentsDao.class);
+		dao.declare_comm(param);
+	}
+
+	// 신고된 댓글 목록
+	@Override
+	public ArrayList<CommentsDto> received_comm() {
+		CommentsDao dao = sqlSession.getMapper(CommentsDao.class);
+		return dao.received_comm();
+	}
+
 }

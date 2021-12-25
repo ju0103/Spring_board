@@ -32,4 +32,28 @@
 		   AND COMM_NO = #{comm_no}
 	</delete>
 	
+	<!-- 댓글 신고 여부 확인 -->
+	<select id="chk_declare" parameterType="hashmap" resultType="int">
+		SELECT COMM_DECLARE
+		  FROM COMMENTS
+		 WHERE POST_NO = #{post_no}
+		   AND COMM_NO = #{comm_no}
+	</select>
+	
+	<!-- 댓글 신고 -->
+	<update id="declare_comm" parameterType="hashmap">
+		UPDATE COMMENTS
+		   SET COMM_DECLARE = COMM_DECLARE + 1
+		   	 , DECLARE_REPORTER = #{declare_reporter}
+		 WHERE POST_NO = #{post_no}
+		   AND COMM_NO = #{comm_no}
+	</update>
+	
+	<!-- 신고된 댓글 목록 조회 -->
+	<select id="received_comm" resultType="com.project.spring_board.dto.CommentsDto">
+		SELECT POST_NO, COMM_NO, COMM_WRITER, COMM_CONTENT, COMM_REGDATE, DECLARE_REPORTER
+		  FROM COMMENTS
+		 WHERE COMM_DECLARE = 1
+	</select>
+	
 </mapper>

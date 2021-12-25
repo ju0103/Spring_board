@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -173,4 +174,30 @@ public class PostController {
 		
 		return "redirect:post_content";
 	}
+	
+	// 댓글 신고하기
+	@RequestMapping(value = "/comm_declare")
+	@ResponseBody
+	public int comm_declare(@RequestParam HashMap<String, String> param) {
+		// 댓글 신고 여부 확인
+		int result = commentsService.chk_declare(param);
+		
+		System.out.println("result>> "+result);
+		if (result >= 1) {
+			return result;
+		} else {
+			commentsService.declare_comm(param);
+			return commentsService.chk_declare(param);
+		}
+	}
+	
+	// 신고된 댓글 리스트
+	@RequestMapping(value = "/received_comm")
+	public String received_comm(Model model) {
+		System.out.println("recied_comm");
+		ArrayList<CommentsDto> list = commentsService.received_comm();
+		model.addAttribute("commList", list);
+		return "comment/received_comm";
+	}
+
 }

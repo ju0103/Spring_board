@@ -21,7 +21,7 @@
 			</div>
 			<div class="col-lg-2 mt-5">
 				<a href="../post/post_list">목록으로</a>
-				&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">로그아웃</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href="../member/logout">로그아웃</a>
 			</div>
 		</div>
 		<hr>
@@ -61,6 +61,7 @@
 					<div class="col-2">
 						<nav class="list-group">
 							<a class="list-group-item list-group-item-action" href="updateMemberView?mem_id=${member.mem_id}">관리자 정보 수정</a>
+							<a class="list-group-item list-group-item-action" href="../post/received_comm">신고된 댓글</a>
 						</nav>
 					</div>
 				</c:when>

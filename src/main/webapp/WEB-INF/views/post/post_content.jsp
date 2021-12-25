@@ -24,6 +24,9 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;<a href="post_update_view?post_no=${post_content.post_no}">수정</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-danger" onclick="confirmDelete();">삭제</button>
 				</c:if>
+				<c:if test="${not empty sessionScope.mem_id && sessionScope.mem_id eq 'admin'}">
+						&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-danger" onclick="confirmDelete();">삭제</button>
+				</c:if>				
 			</div>
 		</div>
 		<hr>
@@ -78,9 +81,21 @@
 								<p>
 									작성자: ${comments.comm_writer}
 									&nbsp;&nbsp;&nbsp; 작성일: <fmt:formatDate value="${comments.comm_regdate}" pattern="yyyy.MM.dd hh:mm" />
+									<c:if test="${not empty sessionScope.mem_id}">
+										<c:choose>
+											<c:when test="${sessionScope.mem_id eq comments.comm_writer}">
+												<button type="button" class="btn btn-outline-danger" id="modifyCommBtn">수정하기</button>
+												<button type="button" class="btn btn-outline-danger" onclick="deleteComm(${post_content.post_no}, ${comments.comm_no});">삭제하기</button>
+											</c:when>
+											<c:when test="${sessionScope.mem_id eq 'admin'}">
+												<button type="button" class="btn btn-outline-danger" onclick="deleteComm(${post_content.post_no}, ${comments.comm_no});">삭제하기</button>
+											</c:when>
+											<c:otherwise>
+												<button type="button" class="btn btn-outline-secondary" onclick="declare('${post_content.post_no}', '${comments.comm_no}', '${sessionScope.mem_id}');">신고하기</button>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
 									<c:if test="${sessionScope.mem_id eq comments.comm_writer}">
-										<button type="button" class="btn btn-outline-danger" id="modifyCommBtn">수정하기</button>
-										<button type="button" class="btn btn-outline-danger" onclick="deleteComm(${post_content.post_no}, ${comments.comm_no});">삭제하기</button>
 										<form method="post" action="modify_comm">
 											<div class="card" id="modifyForm" style="display: none;">
 												<input type="hidden" name="post_no" value="${post_content.post_no}">
@@ -129,6 +144,29 @@
 		
 		modifyBtn.onclick = function() {
 			modifyForm.style.display = 'block';
+		}
+	}
+	
+	function declare(postNo, commNo, reporter) {
+		if (confirm("신고하시겠습니까?")) {
+			$.ajax({
+				url: "comm_declare",
+				type: "post",
+				dataType: "json",
+				data: {"post_no": postNo, "comm_no": commNo, "declare_reporter": reporter},
+				success: function(data) {
+					console.log(data);
+					if (data >= 1) {
+						alert("신고 접수 완료");
+					} else {
+						alert("신고 접수 오류");
+					}
+				},
+				error: function(data) {
+					console.log(data);
+					alert("오류 발생");
+				}
+			});
 		}
 	}
 </script>

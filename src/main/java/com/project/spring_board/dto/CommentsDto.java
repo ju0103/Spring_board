@@ -13,6 +13,10 @@ public class CommentsDto {
 	private String comm_content;
 	/* 댓글 등록일 */
 	private Timestamp comm_regdate;
+	/* 댓글 신고 여부 */
+	private int comm_declare;
+	/* 댓글 신고자 */
+	private String declare_reporter;
 	
 	public int getPost_no() {
 		return post_no;
@@ -43,5 +47,17 @@ public class CommentsDto {
 	}
 	public void setComm_regdate(Timestamp comm_regdate) {
 		this.comm_regdate = comm_regdate;
+	}
+	public int getComm_declare() {
+		return comm_declare;
+	}
+	public void setComm_declare(int comm_declare) {
+		this.comm_declare = comm_declare;
+	}
+	public String getDeclare_reporter() {
+		return declare_reporter;
+	}
+	public void setDeclare_reporter(String declare_reporter) {
+		this.declare_reporter = declare_reporter;
 	}
 }
