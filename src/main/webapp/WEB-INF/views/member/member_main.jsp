@@ -47,7 +47,7 @@
 											<th>${list.mem_name}</th>
 											<th>${list.mem_tel}</th>
 											<th>${list.mem_email}</th>
-											<th><fmt:formatDate value="${list.mem_regdate}" pattern="yyyy-mm-dd"/></th>
+											<th><fmt:formatDate value="${list.mem_regdate}" pattern="yyyy-MM-dd"/></th>
 											<th>${list.mem_level}</th>
 											<th>
 												<button type="button" class="btn btn-outline-secondary" onclick="confirmLevelUp('${list.mem_id}', ${list.mem_level });">등업</button>

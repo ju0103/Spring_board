@@ -63,6 +63,7 @@
 			 , MEM_LEVEL
 		  FROM MEMBER
 		 WHERE MEM_ID != 'admin'
+		 ORDER BY MEM_REGDATE DESC
 	</select>
 	
 	<!-- 회원 등업 -->
